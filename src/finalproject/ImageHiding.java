@@ -30,48 +30,13 @@ public class ImageHiding extends JFrame implements ActionListener
  JButton decrypt;
 JFileChooser fc;
 
+BufferedImage img = null;
 
  ImageCanvas hostCanvas;
  ImageCanvas hostCanvas2;
  ImageCanvas secretCanvas;
 
- public BufferedImage getHostImage()
- {
-  BufferedImage img = null;
-
-  try
-  {
-   img = ImageIO.read(new File("host_image2.png"));
-  }
-  catch (IOException ioe) { ioe.printStackTrace(); }
-
-  return img;
- }
-public BufferedImage getHostImage2()
- {
-  BufferedImage img = null;
-
-  try
-  {
-   img = ImageIO.read(new File("host_image2.png"));
-  }
-  catch (IOException ioe) { ioe.printStackTrace(); }
-
-  return img;
- }
- public BufferedImage getSecretImage()
- {
-  BufferedImage img = null;
-
-  try
-  {
-   img = ImageIO.read(new File("host_image2.png"));
-  }
-  catch (IOException ioe) { ioe.printStackTrace(); }
-
-  return img;
- }
-
+ 
 
  public void actionPerformed(ActionEvent event)
  {
@@ -234,89 +199,93 @@ try {
 
  public ImageHiding()
  {
-  GridBagLayout layout = new GridBagLayout();
-  GridBagConstraints gbc = new GridBagConstraints();
-  this.setTitle("Image Hiding Demo");
-
-  Container container = this.getContentPane();
-
-  this.setLayout(layout);
-
-
-  
-
-  chosehost1 = new JButton("choose host 1");
-  chosehost1.addActionListener(this);
- 
-
-  chosehost2 = new JButton("choose host 2");
-  chosehost2.addActionListener(this);
-
-  choosesecret = new JButton("choose secret image");
-  choosesecret.addActionListener(this);
-  
-  encrypt = new JButton("encrypt");
-  encrypt.addActionListener(this);
-  
-  decrypt = new JButton("decrypt");
-  decrypt.addActionListener(this);
-  
-  gbc.weightx = 1.0;
-  layout.setConstraints(chosehost1, gbc);
-  this.add(chosehost1);
-  
-   gbc.weightx = 1.0;
-  layout.setConstraints(chosehost2, gbc);
-  this.add(chosehost2);
-  
-  gbc.weightx = 1.0;
-  layout.setConstraints(choosesecret, gbc);
-  this.add(choosesecret);
-
-
-  gbc.weightx = 2.0;
-  layout.setConstraints(encrypt, gbc);
-  this.add(encrypt);
-
-    gbc.weightx = 2.0;
-  layout.setConstraints(decrypt, gbc);
-  this.add(decrypt);
-  
-  GridBagLayout imageGridbag = new GridBagLayout();
-  GridBagConstraints imageGBC = new GridBagConstraints();
-
-  imagePanel = new JPanel();
-  imagePanel.setLayout(imageGridbag);
-
-  JLabel hostImageLabel = new JLabel("Host image:");
-  JLabel hostImageLabel2 = new JLabel("Host image2:");
-  JLabel secretImageLabel = new JLabel("Secret image:");
-
-  imagePanel.add(hostImageLabel);
-  imagePanel.add(hostImageLabel2);
-
-  imageGBC.gridwidth = GridBagConstraints.REMAINDER;
-  imageGridbag.setConstraints(secretImageLabel, imageGBC);
-  imagePanel.add(secretImageLabel);
-
-  hostCanvas = new ImageCanvas(this.getHostImage());  
-  hostCanvas2 = new ImageCanvas(this.getHostImage2());  
-  secretCanvas = new ImageCanvas(this.getSecretImage());
-
-  imagePanel.add(hostCanvas);
-  imagePanel.add(hostCanvas2);
-  imagePanel.add(secretCanvas);
-
-  gbc.gridwidth = GridBagConstraints.REMAINDER;
-  layout.setConstraints(imagePanel, gbc);
-  this.add(imagePanel);
-
-
-
-  this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-  this.pack();
-
-  this.setVisible(true);
+     try {
+         GridBagLayout layout = new GridBagLayout();
+         GridBagConstraints gbc = new GridBagConstraints();
+         this.setTitle("Image Hiding Demo");
+         
+         Container container = this.getContentPane();
+         
+         this.setLayout(layout);
+         
+         
+         
+         
+         chosehost1 = new JButton("choose host 1");
+         chosehost1.addActionListener(this);
+         
+         
+         chosehost2 = new JButton("choose host 2");
+         chosehost2.addActionListener(this);
+         
+         choosesecret = new JButton("choose secret image");
+         choosesecret.addActionListener(this);
+         
+         encrypt = new JButton("encrypt");
+         encrypt.addActionListener(this);
+         
+         decrypt = new JButton("decrypt");
+         decrypt.addActionListener(this);
+         
+         gbc.weightx = 1.0;
+         layout.setConstraints(chosehost1, gbc);
+         this.add(chosehost1);
+         
+         gbc.weightx = 1.0;
+         layout.setConstraints(chosehost2, gbc);
+         this.add(chosehost2);
+         
+         gbc.weightx = 1.0;
+         layout.setConstraints(choosesecret, gbc);
+         this.add(choosesecret);
+         
+         
+         gbc.weightx = 2.0;
+         layout.setConstraints(encrypt, gbc);
+         this.add(encrypt);
+         
+         gbc.weightx = 2.0;
+         layout.setConstraints(decrypt, gbc);
+         this.add(decrypt);
+         
+         GridBagLayout imageGridbag = new GridBagLayout();
+         GridBagConstraints imageGBC = new GridBagConstraints();
+         
+         imagePanel = new JPanel();
+         imagePanel.setLayout(imageGridbag);
+         
+         JLabel hostImageLabel = new JLabel("Host image:");
+         JLabel hostImageLabel2 = new JLabel("Host image2:");
+         JLabel secretImageLabel = new JLabel("Secret image:");
+         
+         imagePanel.add(hostImageLabel);
+         imagePanel.add(hostImageLabel2);
+         
+         imageGBC.gridwidth = GridBagConstraints.REMAINDER;
+         imageGridbag.setConstraints(secretImageLabel, imageGBC);
+         imagePanel.add(secretImageLabel);
+         img = ImageIO.read(new File("host_image2.png"));
+         hostCanvas = new ImageCanvas(img);
+         hostCanvas2 = new ImageCanvas(img);
+         secretCanvas = new ImageCanvas(img);
+         
+         imagePanel.add(hostCanvas);
+         imagePanel.add(hostCanvas2);
+         imagePanel.add(secretCanvas);
+         
+         gbc.gridwidth = GridBagConstraints.REMAINDER;
+         layout.setConstraints(imagePanel, gbc);
+         this.add(imagePanel);
+         
+         
+         
+         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+         this.pack();
+         
+         this.setVisible(true);
+     } catch (IOException ex) {
+         Logger.getLogger(ImageHiding.class.getName()).log(Level.SEVERE, null, ex);
+     }
  }
 
  public static void main(String[] args)
