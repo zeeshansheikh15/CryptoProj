@@ -22,7 +22,7 @@ public class ImageHiding extends JFrame implements ActionListener
  JPanel controlPanel;
  JPanel imagePanel;
 
- JTextField encodeBitsText;
+
  JButton chosehost1;
  JButton chosehost2;
  JButton choosesecret;
@@ -30,16 +30,10 @@ public class ImageHiding extends JFrame implements ActionListener
  JButton decrypt;
 JFileChooser fc;
 
- 
- JTextField nBitsText;
- JButton nBitsPlus;
- JButton nBitsMinus;
 
  ImageCanvas hostCanvas;
  ImageCanvas hostCanvas2;
  ImageCanvas secretCanvas;
-
- Steganography s;
 
  public BufferedImage getHostImage()
  {
@@ -78,10 +72,6 @@ public BufferedImage getHostImage2()
   return img;
  }
 
- public int getBits()
- {
-  return Integer.parseInt(encodeBitsText.getText());
- }
 
  public void actionPerformed(ActionEvent event)
  {
@@ -90,7 +80,7 @@ public BufferedImage getHostImage2()
   if (source == chosehost1)
   {
     fc = new JFileChooser();
-    fc.setCurrentDirectory(new java.io.File("C:\\Users\\zeesh\\Documents\\NetBeansProjects\\finalproject"));
+   // fc.setCurrentDirectory(new java.io.File("C:\\Users\\zeesh\\Documents\\NetBeansProjects\\finalproject"));
     fc.setDialogTitle("cggfh");
     FileNameExtensionFilter filter = new FileNameExtensionFilter(
         "JPG & GIF Images", "jpg", "gif", "png");
@@ -110,7 +100,7 @@ public BufferedImage getHostImage2()
   else if (source == chosehost2)
   {
   fc = new JFileChooser();
-    fc.setCurrentDirectory(new java.io.File("C:\\Users\\zeesh\\Documents\\NetBeansProjects\\finalproject"));
+ //   fc.setCurrentDirectory(new java.io.File("C:\\Users\\zeesh\\Documents\\NetBeansProjects\\finalproject"));
     fc.setDialogTitle("cggfh");
     FileNameExtensionFilter filter = new FileNameExtensionFilter(
         "JPG & GIF Images", "jpg", "gif", "png");
@@ -121,8 +111,7 @@ public BufferedImage getHostImage2()
             hostImage2 = ImageIO.read(fc.getSelectedFile());
              hostCanvas2.setImage(hostImage2);
              hostCanvas2.repaint();
-          //    ImageIO.write(hostImage2, "gif", new File("C:\\Users\\zeesh\\Documents\\NetBeansProjects\\finalproject\\written.jpg"));
-
+          
         } catch (IOException ex) {
             Logger.getLogger(ImageHiding.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -132,7 +121,7 @@ public BufferedImage getHostImage2()
   else if (source == choosesecret)
   {
   fc = new JFileChooser();
-    fc.setCurrentDirectory(new java.io.File("C:\\Users\\zeesh\\Documents\\NetBeansProjects\\finalproject"));
+ //   fc.setCurrentDirectory(new java.io.File("C:\\Users\\zeesh\\Documents\\NetBeansProjects\\finalproject"));
     fc.setDialogTitle("cggfh");
     FileNameExtensionFilter filter = new FileNameExtensionFilter(
         "JPG & GIF Images", "jpg", "gif", "png");
@@ -189,8 +178,8 @@ host2.setRGB(0, 0, host2.getWidth(null), host2.getHeight(null), host2RGB, 0, hos
 int[] host22RGB = host2.getRGB(0, 0, host2.getWidth(null), host2.getHeight(null), null, 0, host2.getWidth(null));
 System.out.println(" host2 rgb"+Integer.toBinaryString(host22RGB[3]));
 try {
-    ImageIO.write(host1, "png", new File("C:\\Users\\zeesh\\Documents\\NetBeansProjects\\finalproject\\enchostmsb.png"));
-    ImageIO.write(host2, "png", new File("C:\\Users\\zeesh\\Documents\\NetBeansProjects\\finalproject\\enchostlsb.png"));
+    ImageIO.write(host1, "png", new File("enchostmsb.png"));
+    ImageIO.write(host2, "png", new File("enchostlsb.png"));
 } catch (IOException ex) {
     Logger.getLogger(ImageHiding.class.getName()).log(Level.SEVERE, null, ex);
 }
@@ -235,7 +224,7 @@ secret.setRGB(0, 0, secret.getWidth(null), secret.getHeight(null), secretRGB, 0,
 int[] secretttRGB = secret.getRGB(0, 0, secret.getWidth(null), secret.getHeight(null), null, 0, secret.getWidth(null));
 System.out.println(" secretttRGB rgb"+Integer.toBinaryString(secretttRGB[3]));
 try {
-    ImageIO.write(secret, "png", new File("C:\\Users\\zeesh\\Documents\\NetBeansProjects\\finalproject\\secdec.png"));
+    ImageIO.write(secret, "png", new File("secdec.png"));
     } catch (IOException ex) {
     Logger.getLogger(ImageHiding.class.getName()).log(Level.SEVERE, null, ex);
 }
@@ -253,14 +242,8 @@ try {
 
   this.setLayout(layout);
 
-  this.add(new JLabel("Bits to encode into host image:"));
 
-  encodeBitsText = new JTextField("0", 5);
-  encodeBitsText.setEditable(false);
-
-  gbc.weightx = -1.0;
-  layout.setConstraints(encodeBitsText, gbc);
-  this.add(encodeBitsText);
+  
 
   chosehost1 = new JButton("choose host 1");
   chosehost1.addActionListener(this);
@@ -328,13 +311,7 @@ try {
   layout.setConstraints(imagePanel, gbc);
   this.add(imagePanel);
 
-//  Steganography host = new Steganography(this.getHostImage());
-//  host.encode(this.getSecretImage(), this.getBits());
-//  hostCanvas.setImage(host.getImage());
-//
-//  Steganography secret = new Steganography(this.getSecretImage());
-//  secret.getMaskedImage(this.getBits());
-//  secretCanvas.setImage(secret.getImage());
+
 
   this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
   this.pack();
@@ -371,46 +348,4 @@ try {
  }
 }
 
-class Steganography
-{
- BufferedImage host1;
- BufferedImage host2;
- BufferedImage secret;
- public void encode()
- {
-//     
-//  int[] host1RGB = host1.getRGB(0, 0, host1.getWidth(null), host1.getHeight(null), null, 0, host1.getWidth(null));
-//  int[] host2RGB = host2.getRGB(0, 0, host2.getWidth(null), host2.getHeight(null), null, 0, host2.getWidth(null));
-//  int[] secretRGB = secret.getRGB(0, 0, secret.getWidth(null), secret.getHeight(null), null, 0, secret.getWidth(null));
-//
-//  int encodeByteMask = (int)(Math.pow(2, 4)) - 1 << (4);
-//  int encodeMask = (encodeByteMask << 24) | (encodeByteMask << 16) | (encodeByteMask << 8) | encodeByteMask;
-//
-//  int decodeByteMask = ~(encodeByteMask >>> (4)) & 0xFF;
-//  int hostMask = (decodeByteMask << 24) | (decodeByteMask << 16) | (decodeByteMask << 8) | decodeByteMask;
-//
-//  for (int i = 0; i < imageRGB.length; i++)
-//  {
-//   int encodeData = (encodeRGB[i] & encodeMask) >>> (4);
-//   imageRGB[i] = (imageRGB[i] & hostMask) | (encodeData & ~hostMask);
-//  }
-//
-//  image.setRGB(0, 0, image.getWidth(null), image.getHeight(null), imageRGB, 0, image.getWidth(null));
- }
 
- public Image gethost1()
- {
-  return host1;
- }
- public Image gethost2()
- {
-  return host2;
- }
- public Steganography(BufferedImage image1,BufferedImage image2,BufferedImage image)
- {
-  this.host1 = image1;
-  this.host2 = image2;
-  this.secret = image;
- }
-
- }
